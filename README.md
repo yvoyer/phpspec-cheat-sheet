@@ -1,16 +1,11 @@
 PHPSpec Cheat Sheet
 ===================
-
 A cheat sheet for phpspec
-
 # Console
-
 * Generate a new specification: `bin/phpspec desc Full/Class/Name`
 * Run the tests: `bin/phpspec run`
-
 # Matchers
-
-1 Identity `===`
+## Identity `===`
 
 Method should return the same `===` value to expected value.
 
@@ -29,17 +24,12 @@ Method should return the same `===` value to expected value.
     $this
         ->getMethodName()
         ->shouldBeEqualTo('value');
-
-2 Comparaison
-
+## Comparaison
 Method should return a value equal `==` to expected value.
-
     $this
         ->getMethodName()
         ->shouldBeLike('value');
-
-3 Throw
-
+## Throw
 Method should throw the expected Exception.
 
     $this
@@ -53,18 +43,14 @@ Method should throw the expected Exception.
     $this
         ->shouldThrow(new \Exception('Message'))
         ->during('methodName', array('value'));
-
-4 Type
-
+## Type
 Object is an object of type `\Full\Class\Name`.
 
     $this->shouldHaveType('\Full\Class\Name');
     $this->shouldReturnAnInstanceOf('\Full\Class\Name');
     $this->shouldBeAnInstance('\Full\Class\Name');
     $this->shouldImplement('\Full\Interface\Name');
-
-5 Object State
-
+## Object State
 Method named `is*` or `has*` should return true.
 
     // isActive() method should return true
@@ -76,15 +62,11 @@ Method named `is*` or `has*` should return true.
     $this->shouldNotBeActive();
     // hasSomething() method should return false
     $this->shouldNotHaveSomething();
-
-6 Count
-
+## Count
 Method should return an object of type `\Countable` or `array`, that contains x element.
 
     $this->getCollection()->shouldHaveCount(1);
-
-7 Scalar
-
+## Scalar
 Method should return a value of primitive types.
 
     $this->getBool()->shouldBeBool();
@@ -93,9 +75,7 @@ Method should return a value of primitive types.
     $this->getInteger()->shouldBeInteger();
     $this->getDecimal()->shouldBeDecimal();
     $this->getCollection()->shouldBeArray();
-
-8 Custom matcher
-
+## Custom matcher
 Method should return a value that match the custom matcher.
 
     function it_should_have_some_specific_options_by_default()
@@ -115,11 +95,8 @@ Method should return a value that match the custom matcher.
             },
         ];
     }
-
 # Stubs
-
 Collaborator (Composed object) should call a method that could return a value.
-
     /**
      * @param Full\Class\Name $stub
      */
@@ -129,9 +106,7 @@ Collaborator (Composed object) should call a method that could return a value.
 
         $this->testMethod("value", $stub)->shouldReturn("other value");
     }
-
 # Mocks
-
 Expecting a method to be called on an object.
 
      /**
@@ -146,9 +121,7 @@ Expecting a method to be called on an object.
         $this->addStub($expectedStub);
         $this->doMethod($expectedMock);
     }
-
 # let/letgo
-
 Construct expectations before and after each tests.
 
     function let($object)
