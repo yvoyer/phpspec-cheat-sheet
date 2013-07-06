@@ -97,6 +97,7 @@ Method should return a value that match the custom matcher.
     }
 # Stubs
 Collaborator (Composed object) should call a method that could return a value.
+
     /**
      * @param Full\Class\Name $stub
      */
