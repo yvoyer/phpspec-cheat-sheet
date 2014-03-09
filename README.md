@@ -5,67 +5,40 @@ A cheat sheet for phpspec
 * Generate a new specification: `bin/phpspec desc Full/Class/Name`
 * Run the tests: `bin/phpspec run`
 # Matchers
-## Identity `===`
 
-Method should return the same `===` value to expected value.
+## Same (===)
 
-    $this
-        ->getMethodName()
-        ->shouldReturn('value');
+    $this->getMethodName()->shouldReturn('value');
+    $this->getMethodName()->shouldBe('value');
+    $this->getMethodName()->shouldEqual('value');
+    $this->getMethodName()->shouldBeEqualTo('value');
+## Equals (==)
 
-    $this
-        ->getMethodName()
-        ->shouldBe('value');
+    $this->getMethodName()->shouldBeLike('value');
+## Object type (instanceof)
 
-    $this
-        ->getMethodName()
-        ->shouldEqual('value');
+    $this->getMethodName()->shouldHaveType('\Full\Class\Name');
+    $this->getMethodName()->shouldReturnAnInstanceOf('\Full\Class\Name');
+    $this->getMethodName()->shouldBeAnInstance('\Full\Class\Name');
+    $this->getMethodName()->shouldImplement('\Full\Interface\Name');
+## Bool
+Method named `is*` or `has*` should return boolean.
 
-    $this
-        ->getMethodName()
-        ->shouldBeEqualTo('value');
-## Comparaison
-Method should return a value equal `==` to expected value.
-    $this
-        ->getMethodName()
-        ->shouldBeLike('value');
-## Throw
-Method should throw the expected Exception.
+    $this->shouldBeActive(); // isActive() method should return true
+    $this->shouldHaveSomething(); // hasSomething() method should return true
 
-    $this
-        ->shouldThrow('\Exception')
-        ->duringMethodName('value');
-
-    $this
-        ->shouldThrow('\Exception')
-        ->during('methodName', array('value'));
-
-    $this
-        ->shouldThrow(new \Exception('Message'))
-        ->during('methodName', array('value'));
-## Type
-Object is an object of type `\Full\Class\Name`.
-
-    $this->shouldHaveType('\Full\Class\Name');
-    $this->shouldReturnAnInstanceOf('\Full\Class\Name');
-    $this->shouldBeAnInstance('\Full\Class\Name');
-    $this->shouldImplement('\Full\Interface\Name');
-## Object State
-Method named `is*` or `has*` should return true.
-
-    // isActive() method should return true
-    $this->shouldBeActive();
-    // hasSomething() method should return true
-    $this->shouldHaveSomething();
-
-    // isActive() method should return false
-    $this->shouldNotBeActive();
-    // hasSomething() method should return false
-    $this->shouldNotHaveSomething();
-## Count
+    $this->shouldNotBeActive(); // isActive() method should return false
+    $this->shouldNotHaveSomething(); // hasSomething() method should return false
+## Countable
 Method should return an object of type `\Countable` or `array`, that contains x element.
 
     $this->getCollection()->shouldHaveCount(1);
+## Exception
+Method should throw the expected Exception.
+
+    $this->shouldThrow('\Exception')->duringMethodName('value');
+    $this->shouldThrow('\Exception')->during('methodName', array('value'));
+    $this->shouldThrow(new \Exception('Message'))->during('methodName', array('value'));
 ## Scalar
 Method should return a value of primitive types.
 
