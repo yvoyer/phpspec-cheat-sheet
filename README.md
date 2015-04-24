@@ -19,7 +19,7 @@ A cheat sheet for phpspec
 
     $this->getMethodName()->shouldHaveType('\Full\Class\Name');
     $this->getMethodName()->shouldReturnAnInstanceOf('\Full\Class\Name');
-    $this->getMethodName()->shouldBeAnInstance('\Full\Class\Name');
+    $this->getMethodName()->shouldBeAnInstanceOf('\Full\Class\Name');
     $this->getMethodName()->shouldImplement('\Full\Interface\Name');
 ## Bool
 Method named `is*` or `has*` should return boolean.
