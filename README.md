@@ -1,9 +1,11 @@
 PHPSpec Cheat Sheet
 ===================
-A cheat sheet for phpspec
+A cheat sheet for [phpspec](https://github.com/phpspec/phpspec) (>= v2.4.0)
+
 # Console
 * Generate a new specification: `bin/phpspec desc Full/Class/Name`
 * Run the tests: `bin/phpspec run`
+
 # Matchers
 
 ## Same (===)
@@ -21,6 +23,19 @@ $this->getMethodName()->shouldBeEqualTo('value');
 $this->getMethodName()->shouldBeLike('value');
 ```
 
+## Contain (array, string)
+
+``` PHP
+$this->getArrayValue()->shouldContain('Jane Smith'); // Element in array (===)
+$this->getArrayValue()->shouldHaveKeyWithValue('key', 'value');
+$this->getArrayValue()->shouldHaveKey('key');
+
+$this->getStringValue()->shouldContain('value'); // String contain exact value (===)
+$this->getStringValue()->shouldStartWith('value');
+$this->getStringValue()->shouldEndWith('value');
+$this->getStringValue()->shouldMatch('/pattern/'); // Regex
+```
+
 ## Object type (instanceof)
 
 ``` PHP
@@ -31,7 +46,8 @@ $this->getMethodName()->shouldImplement('\Full\Interface\Name');
 ```
 
 ## Bool
-Method named `is*` or `has*` should return boolean.
+
+For methods named `is*` or `has*`.
 
 ``` PHP
 $this->shouldBeActive(); // isActive() method should return true
@@ -42,23 +58,26 @@ $this->shouldNotHaveSomething(); // hasSomething() method should return false
 ```
 
 ## Countable
-Method should return an object of type `\Countable` or `array`, that contains x element.
 
 ``` PHP
-$this->getCollection()->shouldHaveCount(1);
+$this->getCountableObject()->shouldHaveCount(1);
+$this->getArrayValue()->shouldHaveCount(1);
 ```
 
 ## Exception
-Method should throw the expected Exception.
 
 ``` PHP
 $this->shouldThrow('\Exception')->duringMethodName('value');
+$this->shouldThrow(new \Exception('Message'))->duringMethodName('value');
+
 $this->shouldThrow('\Exception')->during('methodName', array('value'));
 $this->shouldThrow(new \Exception('Message'))->during('methodName', array('value'));
+
+$this->shouldThrow('\Exception')->duringInstantiation();
+$this->shouldThrow(new \Exception('Message'))->duringInstantiation();
 ```
 
 ## Scalar
-Method should return a value of primitive types.
 
 ``` PHP
 $this->getBool()->shouldBeBool();
@@ -67,6 +86,13 @@ $this->getString()->shouldBeString();
 $this->getInteger()->shouldBeInteger();
 $this->getDecimal()->shouldBeDecimal();
 $this->getCollection()->shouldBeArray();
+```
+
+## Object construct
+
+``` php
+$this->beConstructedWith(-3);
+$this->beConstructedThrough('methodName', array(-3));
 ```
 
 ## Custom matcher
@@ -102,7 +128,6 @@ Collaborator (Composed object) should call a method that could return a value.
 function it_adds_a_end_of_list_to_markup($stub)
 {
     $stub->getExpectedMethod()->willReturn("Some value");
-
     $this->testMethod("value", $stub)->shouldReturn("other value");
 }
 ```
